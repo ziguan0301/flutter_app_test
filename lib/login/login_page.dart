@@ -15,13 +15,14 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,//不讓畫面因為鍵盤超出頁面
       backgroundColor: Colors.grey[300],
-      body: SafeArea(
+      body: SafeArea(   //解決靠邊（上、下、左、右）的地方會被遮擋
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 30),
+              const SizedBox(height: 15),
 
               // logo
               const Icon(
@@ -29,7 +30,7 @@ class LoginPage extends StatelessWidget {
                 size: 100,
               ),
 
-              const SizedBox(height: 30),
+              const SizedBox(height: 15),
 
               // welcome back, you've been missed!
               Text(
@@ -56,7 +57,7 @@ class LoginPage extends StatelessWidget {
               ),
 
                 //or continue
-              const SizedBox(height: 30),
+              const SizedBox(height: 15),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: Row(
@@ -84,7 +85,7 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
               //google button
-              const SizedBox(height: 30),
+              const SizedBox(height: 15),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
