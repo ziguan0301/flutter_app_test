@@ -1,8 +1,20 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_app_test/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_app_test/login/login_page.dart';
 import 'package:flutter_app_test/home/home_page.dart';
-void main() {
+import 'package:flutter_app_test/mainpage/main_page.dart';
+// RepositoryProvider&BlocProvider
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'login/auth_repository.dart';
+import 'login/bloc_components/auth_bloc.dart';
+
+//tips: ctrl+alt+m: extract method;ctrl+alt+w: extract widget;
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -11,69 +23,36 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-          resizeToAvoidBottomInset: false,//不讓畫面因為鍵盤超出頁面
-          body: HomeScreen()),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-
-    //控制上排選單樣式
-    final ButtonStyle style = TextButton.styleFrom(
-      foregroundColor: Theme.of(context).colorScheme.onPrimary,
-      textStyle: const TextStyle(
-          fontSize: 25,
-      ),
-    );
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blue[400],
-        leading: IconButton(
-          icon: Icon(
-            Icons.menu,
-          ),
-          onPressed: () => print('按下選單'),
+    return RepositoryProvider(
+      //傳訊息到AuthRepository
+      create: (context) => AuthRepository(),
+      child: BlocProvider(
+        create: (context) => AuthBloc(
+          //傳AuthRepository的訊息到AuthBloc
+          authRepository: RepositoryProvider.of<AuthRepository>(context),
         ),
-        elevation: 0,//
-        actions: <Widget>[
-          TextButton(
-            style: style,
-            onPressed: () {},
-            child: const Text('食材管理'),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Fridge',
+          theme: ThemeData(
+            scaffoldBackgroundColor: kBackgroundColor,
+            primaryColor: kPrimaryColor,
+            textTheme: Theme.of(context).textTheme.apply(bodyColor: kTextColor),
+            visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          TextButton(
-            style: style,
-            onPressed: () {},
-            child: const Text('食譜查詢'),
-          ),
-          TextButton(
-            style: style,
-            onPressed: () {},
-            child: const Text('購物清單'),
-          ),
-        ],
+          //resizeToAvoidBottomInset: false,//不讓畫面因為鍵盤超出頁面
+          home: StreamBuilder<User?>(
+              stream: FirebaseAuth.instance.authStateChanges(),
+              builder: (context, snapshot) {
+                // If the snapshot has user data, then they're already signed in. So Navigating to the Dashboard.
+                if (snapshot.hasData) {
+                  return HomePage();
+                }
+
+                return LoginPage();
+              }),
+        ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-            child: Image(
-              image: NetworkImage('https://stat.ameba.jp/user_images/20150609/23/makapri/97/6f/p/o0272028813332636417.png?caw=800'),
-            ),
-          ),
-          Text('我是一隻弱小的毛毛蟲，想像有天可以成為強壯的挖土機，擁有挖掘夢想的神奇手套！')
-        ],
-      ),
-      bottomNavigationBar: BottomAppBar(),
     );
   }
 }
-

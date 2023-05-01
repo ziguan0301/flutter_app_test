@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_test/components/my_textfield.dart';
 import 'package:flutter_app_test/components/my_button.dart';
 import 'package:flutter_app_test/components/square_tile.dart';
+import 'package:flutter_app_test/mainpage/main_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'bloc_components/auth_bloc.dart';
+
+
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -10,7 +16,7 @@ class LoginPage extends StatelessWidget {
   final usernameController = TextEditingController();
 
   // sign user in method(button)
-  void signUserIn() {}
+  //void signUserIn() {}
 
   @override
   Widget build(BuildContext context) {
@@ -44,18 +50,13 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 15),
 
               // username textfield
-              MyTextField(
-                controller: usernameController,
-                hintText: 'Username',
-                obscureText: false, //顯不顯示
-              ),
-                //forgot?
                 //sign in button
               const SizedBox(height: 15),
               MyButton(
-                onTap: signUserIn,
+                onTap: (){
+                  _authenticateWithGoogle(context);
+                },
               ),
-
                 //or continue
               const SizedBox(height: 15),
               Padding(
@@ -88,9 +89,9 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 15),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children:  [
                   // google button
-                  SquareTile(imagePath: 'assets/google.png'),
+                  SquareTile(imagePath: 'assets/images/google.png',onPressed: (){_authenticateWithGoogle(context);},),
                 ],
               ),
                 //not a member? register now
@@ -100,4 +101,9 @@ class LoginPage extends StatelessWidget {
       ),
     );
   }
+}
+void _authenticateWithGoogle(context) {
+  BlocProvider.of<AuthBloc>(context).add(
+    GoogleSignInRequested(),
+  );
 }
