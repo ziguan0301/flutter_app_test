@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 
 class SquareTile extends StatelessWidget {
   final String imagePath;
-  final Function()? onPressed;
   const SquareTile({
     super.key,
-    required this.imagePath, required this.onPressed,
+    required this.imagePath,
   });
 
   @override
@@ -21,7 +20,7 @@ class SquareTile extends StatelessWidget {
       child: Row(
         children:<Widget>[ 
           IconButton(
-            onPressed:(){onPressed;},
+            onPressed:(){},
             icon: Image.asset(imagePath),
           ),
           Text(

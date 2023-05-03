@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_test/components/my_textfield.dart';
-import 'package:flutter_app_test/components/my_button.dart';
-import 'package:flutter_app_test/components/square_tile.dart';
+import 'package:flutter_app_test/login/components/my_textfield.dart';
+import 'package:flutter_app_test/login/components/my_button.dart';
+import 'package:flutter_app_test/login/components/square_tile.dart';
 import 'package:flutter_app_test/mainpage/main_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -91,7 +91,7 @@ class LoginPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children:  [
                   // google button
-                  SquareTile(imagePath: 'assets/images/google.png',onPressed: (){_authenticateWithGoogle(context);},),
+                  SquareTile(imagePath: 'assets/images/google.png',),
                 ],
               ),
                 //not a member? register now

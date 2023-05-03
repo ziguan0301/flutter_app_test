@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_app_test/mainpage/components/main_body.dart';
 import 'package:flutter_app_test/constants.dart';
-import 'package:flutter_app_test/home/home_page.dart';
-
 import 'components/main_category.dart';
-import 'components/main_foods_pic.dart';
-import 'components/main_header.dart';
-import 'components/title_with_more_btn.dart';
+import 'components/main_search_header.dart';
+
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -21,12 +17,9 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin{
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     TabController _tabcontroller = TabController(length: 3, vsync: this);
-    _tabcontroller.addListener(() {
-      setState(() {
 
-      });
-    });
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: buildAppBar(),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,22 +52,15 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin{
             ),
           ),
           Expanded(
-            child: Container(
+            child: SizedBox(
               width: double.maxFinite,
+              height: double.maxFinite,
               child: TabBarView(
                 controller: _tabcontroller,
                 children: [
                   foodmanager(),
-                  Container(
-                      child: Column(
-                        children: <Widget>[
-                          HeaderWithSearchBOx(size: size,),
-                          Container(
-
-                          ),
-                        ],
-                      )),
-                  Text("bye"),
+                  Container(child: HeaderWithSearchBOx(size: size,)),
+                  foodmanager(),
                 ],
               ),
             ),
@@ -96,6 +82,30 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin{
       ) ,
     );
   }
+}
+class KeepAlivePage extends StatefulWidget {
+  final Widget widget;
+  const KeepAlivePage({required Key key, required this.widget, }) : super(key: key);
+
+  @override
+  _KeepAlivePageState createState() => _KeepAlivePageState();
+}
+
+class _KeepAlivePageState extends State<KeepAlivePage> with AutomaticKeepAliveClientMixin {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    var result = widget;
+    return result;
+  }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 //類別下面小圓點

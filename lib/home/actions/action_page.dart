@@ -1,19 +1,21 @@
-import 'package:flutter_app_test/login/login_page.dart';
-import 'package:flutter_app_test/login/bloc_components/auth_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../constants.dart';
-import '../mainpage/main_page.dart';
-import 'actions/action_page.dart';
+import '../../constants.dart';
+import '../../login/bloc_components/auth_bloc.dart';
+import '../../login/login_page.dart';
 
-class HomePage extends StatelessWidget {
-  HomePage({super.key});
+class ActionPage extends StatefulWidget {
+  const ActionPage({Key? key}) : super(key: key);
 
   @override
+  State<ActionPage> createState() => _ActionPageState();
+}
+
+class _ActionPageState extends State<ActionPage> {
+  @override
   Widget build(BuildContext context) {
-    /** Getting the user from the FirebaseAuth Instance**/
     final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -21,18 +23,6 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        actions: <Widget>[
-          IconButton(
-            icon: Image.asset('assets/images/settings.png'),
-            iconSize: 50,
-            tooltip: 'settings',
-            onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => ActionPage()),
-              );
-            },
-          ),
-        ],
       ),
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
@@ -40,34 +30,23 @@ class HomePage extends StatelessWidget {
             /**Navigate to the sign in screen when the user Signs Out**/
             Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (context) => LoginPage()),
-              (route) => false,
+                  (route) => false,
             );
           }
         },
-        child: Center(
+        child: Container(
+          width: double.maxFinite,
+          height: 375,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => MainScreen()),
-                  );
-                },
-                icon: Image.asset('assets/images/icecofe.png'),
-                iconSize: 400,
-              ),
-              Text(
-                ' ${user.displayName}的冰箱',
-                style: const TextStyle(fontSize: 24,fontWeight: FontWeight.bold,),
-
-                textAlign: TextAlign.center,
-              ),
               /*Text(
                 'Email: \n ${user.email}',
                 style: const TextStyle(fontSize: 24),
                 textAlign: TextAlign.center,
-              ),
+              ),*/
+              const SizedBox(height: kDefaultPadding),
               user.photoURL != null
                   ? Image.network("${user.photoURL}")
                   : Container(),
@@ -81,7 +60,7 @@ class HomePage extends StatelessWidget {
                   // Signing out the user
                   context.read<AuthBloc>().add(SignOutRequested());
                 },
-              ),*/
+              ),
             ],
           ),
         ),

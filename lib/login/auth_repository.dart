@@ -5,8 +5,33 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRepository {
   final _firebaseAuth = FirebaseAuth.instance;
+  Future<void> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-  Future<void> signUp({required String email, required String password}) async {
+      final GoogleSignInAuthentication? googleAuth =
+      await googleUser?.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      await FirebaseAuth.instance.signInWithCredential(credential);
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<void> signOut() async {
+    try {
+      await _firebaseAuth.signOut();
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  /*Future<void> signUp({required String email, required String password}) async {
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
@@ -35,31 +60,5 @@ class AuthRepository {
         throw Exception('Wrong password provided for that user.');
       }
     }
-  }
-
-  Future<void> signInWithGoogle() async {
-    try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
-      final GoogleSignInAuthentication? googleAuth =
-      await googleUser?.authentication;
-
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
-      );
-
-      await FirebaseAuth.instance.signInWithCredential(credential);
-    } catch (e) {
-      throw Exception(e.toString());
-    }
-  }
-
-  Future<void> signOut() async {
-    try {
-      await _firebaseAuth.signOut();
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
+  }*/
 }
