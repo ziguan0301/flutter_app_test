@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_test/constants.dart';
+import 'package:flutter_app_test/colors.dart';
 
 class seven_food_pic extends StatelessWidget {
   const seven_food_pic({

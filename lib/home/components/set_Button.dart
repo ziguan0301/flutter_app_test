@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_test/colors.dart';
+import 'package:flutter_app_test/login/components/square_tile.dart';
 
-class MyButton extends StatelessWidget {
+class SetButton extends StatelessWidget {
   final Function()? onTap;
   final String string;
   final String imagepath;
 
-  const MyButton({super.key, required this.onTap, required this.string, required this.imagepath});
+  const SetButton({super.key, required this.onTap, required this.string, required this.imagepath});
 
   @override
   Widget build(BuildContext context) {
@@ -13,13 +15,12 @@ class MyButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding:  EdgeInsets.only(left: screenSize.width/8,right: screenSize.width/8,top: 10,bottom: 10),
+        padding:  const EdgeInsets.only(left: kDefaultPadding,top: 10,bottom: 10),
         margin: const EdgeInsets.symmetric(horizontal: 25),
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.white),
-          borderRadius: BorderRadius.circular(16),
-          //color: Colors.grey[200],
-        ),
+        /*decoration: BoxDecoration(
+          color: Colors.grey[200],
+          elevation: 0,
+        ),*/
         child: Center(
           child: Row(
             children: <Widget>[
@@ -32,7 +33,7 @@ class MyButton extends StatelessWidget {
                 string,
                 style: TextStyle(
                   //color: Colors.grey,
-                  fontWeight: FontWeight.bold,
+                  //fontWeight: FontWeight.bold,
                   fontSize: 30,
                 ),
               ),

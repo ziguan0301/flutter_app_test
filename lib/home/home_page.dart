@@ -2,17 +2,24 @@ import 'package:flutter_app_test/login/login_page.dart';
 import 'package:flutter_app_test/login/bloc_components/auth_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_test/mainpage/drawer_components/drawer_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../constants.dart';
+import '../colors.dart';
 import '../mainpage/main_page.dart';
 import 'actions/action_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     /** Getting the user from the FirebaseAuth Instance**/
     final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
@@ -28,7 +35,7 @@ class HomePage extends StatelessWidget {
             tooltip: 'settings',
             onPressed: () {
               Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => ActionPage()),
+                MaterialPageRoute(builder: (context) => const ActionPage()),
               );
             },
           ),
@@ -50,8 +57,11 @@ class HomePage extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => MainScreen()),
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                        builder: (context) => Stack(
+                              children: [DrawerScreen(), MainScreen()],
+                            )),
                   );
                 },
                 icon: Image.asset('assets/images/icecofe.png'),
@@ -59,8 +69,10 @@ class HomePage extends StatelessWidget {
               ),
               Text(
                 ' ${user.displayName}的冰箱',
-                style: const TextStyle(fontSize: 24,fontWeight: FontWeight.bold,),
-
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
                 textAlign: TextAlign.center,
               ),
               /*Text(

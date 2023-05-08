@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_test/constants.dart';
+import 'package:flutter_app_test/colors.dart';
 import 'package:flutter_app_test/mainpage/components/foodstitle_with_more_btn.dart';
 import 'package:flutter_app_test/mainpage/components/main_foods_pic.dart';
 

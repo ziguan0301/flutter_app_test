@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_app_test/constants.dart';
+import 'package:flutter_app_test/colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_app_test/login/login_page.dart';
 import 'package:flutter_app_test/home/home_page.dart';
@@ -48,7 +48,6 @@ class MyApp extends StatelessWidget {
                 if (snapshot.hasData) {
                   return HomePage();
                 }
-
                 return LoginPage();
               }),
         ),

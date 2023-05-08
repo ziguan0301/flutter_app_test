@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_test/home/home_page.dart';
 import 'package:flutter_app_test/login/components/my_textfield.dart';
 import 'package:flutter_app_test/login/components/my_button.dart';
 import 'package:flutter_app_test/login/components/square_tile.dart';
+import 'package:flutter_app_test/main.dart';
 import 'package:flutter_app_test/mainpage/main_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -53,48 +55,13 @@ class LoginPage extends StatelessWidget {
                 //sign in button
               const SizedBox(height: 15),
               MyButton(
+                string: "with google",
+                imagepath: 'assets/images/google.png',
                 onTap: (){
                   _authenticateWithGoogle(context);
                 },
               ),
-                //or continue
               const SizedBox(height: 15),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Divider(
-                        thickness: 0.5,
-                        color: Colors.grey[400],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Text(
-                        'Or continue with',
-                        style: TextStyle(color: Colors.grey[700]),
-                      ),
-                    ),
-                    Expanded(
-                      child: Divider(
-                        thickness: 0.5,
-                        color: Colors.grey[400],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              //google button
-              const SizedBox(height: 15),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children:  [
-                  // google button
-                  SquareTile(imagePath: 'assets/images/google.png',),
-                ],
-              ),
-                //not a member? register now
             ],
           ),
         ),
@@ -103,7 +70,10 @@ class LoginPage extends StatelessWidget {
   }
 }
 void _authenticateWithGoogle(context) {
+
   BlocProvider.of<AuthBloc>(context).add(
     GoogleSignInRequested(),
   );
+  Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) =>  const MyApp()));
 }

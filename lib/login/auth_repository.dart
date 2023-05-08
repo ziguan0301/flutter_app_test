@@ -11,7 +11,6 @@ class AuthRepository {
 
       final GoogleSignInAuthentication? googleAuth =
       await googleUser?.authentication;
-
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
@@ -19,13 +18,17 @@ class AuthRepository {
 
       await FirebaseAuth.instance.signInWithCredential(credential);
     } catch (e) {
+      print("signInWithGoogle XXXXXXX");
       throw Exception(e.toString());
+
     }
   }
 
   Future<void> signOut() async {
     try {
+      await GoogleSignIn().signOut();
       await _firebaseAuth.signOut();
+      print("logout Successfully");
     } catch (e) {
       throw Exception(e);
     }
