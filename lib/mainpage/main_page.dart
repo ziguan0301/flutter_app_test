@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_app_test/colors.dart';
+import 'components/foodstitle_with_more_btn.dart';
 import 'components/main_category.dart';
 import 'components/main_search_header.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
-
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
@@ -71,21 +71,17 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
               ),
             ),
             Expanded(
-              child: SizedBox(
-                width: double.maxFinite,
-                height: double.maxFinite,
-                child: TabBarView(
-                  controller: _tabcontroller,
-                  children: [
-                    HeaderWithSearchBOx(
-                      size: size,
-                    ),
-                    HeaderWithSearchBOx(
-                      size: size,
-                    ),
-                    foodmanager(),
-                  ],
-                ),
+              child: TabBarView(
+                controller: _tabcontroller,
+                children: [
+                  HeaderWithSearchBOx(
+                    size: size,
+                  ),
+                  HeaderWithSearchBOx(
+                    size: size,
+                  ),
+                  foodmanager(),
+                ],
               ),
             ),
           ],

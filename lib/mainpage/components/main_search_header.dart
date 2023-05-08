@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_test/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../foodmanager/new_food.dart';
 import 'main_category.dart';
 
 class HeaderWithSearchBOx extends StatelessWidget {
@@ -62,7 +63,13 @@ class HeaderWithSearchBOx extends StatelessWidget {
                   child: CircleAvatar(
                       backgroundColor: Colors.grey[200],
                       child: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => NewFood(),
+                              ),
+                            );
+                          },
                           icon: Image.asset('assets/icons/plus.png'))),
                 ),
               ],

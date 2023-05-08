@@ -16,10 +16,73 @@ class _foodmanagerState extends State<foodmanager> {
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
-          TitleWithMorebtn(title: "剩七天", press: () {}),
-          seven_food_pic(),
-          TitleWithMorebtn(title: "剩十四天", press: () {}),
-          seven_food_pic(),
+          Column(
+            children: <Widget>[
+              TitleWithMorebtn(title: "即將到期", press: () {}),
+              seven_food_pic(
+                title: ["apple","Tree","computer"],
+                date: ["2023-05-08","2023-05-08","2023-05-08"],
+                number: 10000,
+                press: (){},
+                image: [
+                  'https://waapple.org/wp-content/uploads/2021/06/Variety_Cosmic-Crisp-transparent-658x677.png',
+                  'https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg',
+                  'https://picsum.photos/250?image=9',
+                ],
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              TitleWithMorebtn(title: "七天後到期", press: () {}),
+              seven_food_pic(
+                title: ["apple","Tree","computer"],
+                date: ["2023-05-08","2023-05-08","2023-05-08"],
+                number: 100,
+                press: (){},
+                image: [
+                  'https://waapple.org/wp-content/uploads/2021/06/Variety_Cosmic-Crisp-transparent-658x677.png',
+                  'https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg',
+                  'https://picsum.photos/250?image=9',
+                ],
+              ),
+            ],
+          ),
+          //seven_food_pic(),
+          Column(
+            children: [
+              TitleWithMorebtn(title: "十四天後到期", press: () {}),
+              seven_food_pic(
+                title: ["apple","Tree","computer"],
+                date: ["2023-05-08","2023-05-08","2023-05-08"],
+                number: 100,
+                press: (){},
+                image: [
+                  'https://waapple.org/wp-content/uploads/2021/06/Variety_Cosmic-Crisp-transparent-658x677.png',
+                  'https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg',
+                  'https://picsum.photos/250?image=9',
+                ],
+              ),
+            ],
+          ),
+          //seven_food_pic(),
+          Column(
+            children: [
+              TitleWithMorebtn(title: "一個月後到期", press: () {}),
+              seven_food_pic(
+                title: ["apple","Tree","computer"],
+                date: ["2023-05-08","2023-05-08","2023-05-08"],
+                number: 100,
+                press: (){},
+                image: [
+                  'https://waapple.org/wp-content/uploads/2021/06/Variety_Cosmic-Crisp-transparent-658x677.png',
+                  'https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg',
+                  'https://picsum.photos/250?image=9',
+                ],
+              ),
+            ],
+          ),
+          //seven_food_pic(),
         ],
       ),
     );
@@ -36,7 +99,18 @@ class recipesearch extends StatefulWidget {
 class _recipesearchState extends State<recipesearch> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+            child: Text("食譜"),
+          ),
+          Container(
+            child: Text("食譜字"),
+          ),
+        ],
+      ),
+    );
   }
 }
 
