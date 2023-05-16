@@ -7,7 +7,11 @@ class SetButton extends StatelessWidget {
   final String string;
   final String imagepath;
 
-  const SetButton({super.key, required this.onTap, required this.string, required this.imagepath});
+  const SetButton(
+      {super.key,
+      required this.onTap,
+      required this.string,
+      required this.imagepath});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +19,8 @@ class SetButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding:  const EdgeInsets.only(left: kDefaultPadding,top: 10,bottom: 10),
+        padding:
+            const EdgeInsets.only(left: kDefaultPadding, top: 10, bottom: 10),
         margin: const EdgeInsets.symmetric(horizontal: 25),
         /*decoration: BoxDecoration(
           color: Colors.grey[200],
@@ -24,11 +29,10 @@ class SetButton extends StatelessWidget {
         child: Center(
           child: Row(
             children: <Widget>[
-              IconButton(
-                onPressed:(){},
-                icon: Image.asset(imagepath),
+              Image.asset(imagepath),
+              SizedBox(
+                width: 20,
               ),
-              SizedBox(width: 20,),
               Text(
                 string,
                 style: TextStyle(

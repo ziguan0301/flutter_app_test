@@ -7,6 +7,7 @@ import 'package:flutter_app_test/main.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../colors.dart';
+import '../../home/actions/collection/collection_page.dart';
 import '../../login/bloc_components/auth_bloc.dart';
 
 class DrawerScreen extends StatefulWidget {
@@ -74,7 +75,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     //需要pop回來
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => HomePage(),
+                        builder: (context) => CollectionPage( press: () { },),
                       ),
                     );
                   },
@@ -108,7 +109,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   ),
                 );
               },
-              text: "登出帳號",
+              text: "登出",
             ),
           ],
         ),

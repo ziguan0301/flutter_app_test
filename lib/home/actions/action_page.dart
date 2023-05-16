@@ -10,7 +10,10 @@ import 'package:flutter_app_test/login/components/my_button.dart';
 
 import '../components/set_Button.dart';
 import '../home_page.dart';
+import 'collection/collection_page.dart';
 import 'fridge_edit/fridge_edit_page.dart';
+import 'myaccount/myaccount_page.dart';
+
 class ActionPage extends StatefulWidget {
   const ActionPage({Key? key}) : super(key: key);
 
@@ -19,8 +22,15 @@ class ActionPage extends StatefulWidget {
 }
 
 class _ActionPageState extends State<ActionPage> {
+  final List<String> collectiontitle = [
+    "香蒜奶油培根義大利麵",
+    "剝皮辣椒雞湯",
+    "玉米濃湯",
+    "小雞燉蘑菇",
+  ];
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -28,14 +38,20 @@ class _ActionPageState extends State<ActionPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading:IconButton(
+        leading: IconButton(
           icon: Image.asset("assets/icons/back.png"),
-          onPressed: (){
+          onPressed: () {
             Navigator.pop(context);
           },
-        ) ,
-        title: const Text('設定',style: TextStyle(color:Colors.black,fontWeight: FontWeight.bold,
-          fontSize: 30,),),
+        ),
+        title: const Text(
+          '設定',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 30,
+          ),
+        ),
       ),
       body: SafeArea(
         child: Column(
@@ -50,27 +66,48 @@ class _ActionPageState extends State<ActionPage> {
                 ? Image.network("${user.photoURL}")
                 : Container(),
             user.displayName != null
-                ? Text("${user.displayName}",style: const TextStyle(fontSize: 16),)
+                ? Text(
+                    "${user.displayName}",
+                    style: const TextStyle(fontSize: 16),
+                  )
                 : Container(),
             const SizedBox(height: 16),
-            SetButton(onTap: (){
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => FridgesPage()),
-              );
-            }, string: "冰箱編輯", imagepath: 'assets/icons/edit.png'),
-            SetButton(onTap: (){
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => HomePage()),
-              );
-            }, string: "我的收藏", imagepath: 'assets/icons/Vector.png'),
-            SetButton(onTap: (){
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => HomePage()),
-              );
-            }, string: "我的帳號", imagepath: 'assets/icons/folder.png'),
-            SetButton(onTap: (){
-              context.read<AuthBloc>().add(SignOutRequested());
-            }, string: "登出帳號", imagepath: 'assets/icons/arrow-left-circle.png'),
+            SetButton(
+              string: "冰箱編輯",
+              imagepath: 'assets/icons/edit.png',
+              onTap: () {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => FridgesPage()),
+                );
+              },
+            ),
+            SetButton(
+              string: "我的收藏",
+              imagepath: 'assets/icons/Vector.png',
+              onTap: () {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                      builder: (context) => CollectionPage(
+                          press: () {},)),
+                );
+              },
+            ),
+            SetButton(
+              string: "我的帳號",
+              imagepath: 'assets/icons/folder.png',
+              onTap: () {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => MyaccountPage()),
+                );
+              },
+            ),
+            SetButton(
+              string: "登出帳號",
+              imagepath: 'assets/icons/arrow-left-circle.png',
+              onTap: () {
+                context.read<AuthBloc>().add(SignOutRequested());
+              },
+            ),
             /*ElevatedButton(
               child: const Text('Sign Out'),
               onPressed: () {

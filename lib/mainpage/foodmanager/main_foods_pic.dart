@@ -19,59 +19,76 @@ class _seven_food_picState extends State<seven_food_pic> {
   Widget build(BuildContext context) {
     return Container(
       width: double.maxFinite,
-      height:150,
+      height:182,
       child: ListView.builder(
-          itemCount: 3,
+          itemCount: widget.title.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (BuildContext context, int index) {
             return Container(
               margin:const EdgeInsets.only(left: kDefaultPadding-5,top: 10),
               width: 150,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: Colors.blueGrey),
+                borderRadius: BorderRadius.circular(10),
                 color: Colors.white,
-                image: DecorationImage(
+                /*image: DecorationImage(
                   image: new NetworkImage(
                     widget.image[index],
                   ),
                   fit: BoxFit.cover,
-                ),
+                ),*/
               ),
-              child:Container(
-                margin:const EdgeInsets.only(top: 100),
-                height: 20,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  color: Colors.white,
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "${widget.title[index]}\n".toUpperCase(),
-                              style: Theme.of(context).textTheme.labelLarge,
-                            ),
-                            TextSpan(
-                              text: "${widget.date[index]}".toUpperCase(),
-                              style: TextStyle(
-                                color: kPrimaryColor.withOpacity(0.5),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Spacer(),
-                      Text(
-                        '${widget.number}',
-                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                          color: kPrimaryColor,
-                        ),
-                      ),
-                    ],
+              child:Column(
+                children: <Widget>[
+                  FadeInImage.assetNetwork(
+                    height: 130,
+                    image: widget.image[index],
+                    placeholder: 'assets/images/icecofe.png',
                   ),
+                  Container(
+                    height: 40,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.blueGrey),
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                      boxShadow:[
+                        BoxShadow(
+                          offset: Offset(0,10),
+                          blurRadius: 50,
+                          color: kPrimaryColor.withOpacity(0.23),
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                        children: <Widget>[
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: " ${widget.title[index]}\n".toUpperCase(),
+                                  style: Theme.of(context).textTheme.labelLarge,
+                                ),
+                                TextSpan(
+                                  text: " ${widget.date[index]}".toUpperCase(),
+                                  style: TextStyle(
+                                    color: kPrimaryColor.withOpacity(0.5),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Spacer(),
+                          Text(
+                            '${widget.number} ',
+                            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                              color: kPrimaryColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                  ),
+                ],
               ),
 
             );
@@ -80,7 +97,7 @@ class _seven_food_picState extends State<seven_food_pic> {
   }
 }
 
-class OldView extends StatelessWidget {
+/*class OldView extends StatelessWidget {
   const OldView({
     super.key,
   });
@@ -145,7 +162,9 @@ class _food_cardState extends State<food_card> {
       width: size.width * 0.4,
       child: Column(
         children: <Widget>[
+
           FadeInImage.assetNetwork(
+
             image: widget.image,
             placeholder: 'assets/images/icecofe.png',
           ),
@@ -197,4 +216,4 @@ class _food_cardState extends State<food_card> {
       ),
     );
   }
-}
+}*/

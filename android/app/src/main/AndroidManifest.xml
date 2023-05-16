@@ -2,7 +2,7 @@
     package="com.flutter.app.test1.flutter_app_test">
     <application
         android:usesCleartextTraffic="true"
-        android:label="flutter_app_test"
+        android:label="冰箱食材管理系統"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

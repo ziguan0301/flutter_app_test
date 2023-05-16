@@ -40,7 +40,6 @@ class MyApp extends StatelessWidget {
             textTheme: Theme.of(context).textTheme.apply(bodyColor: kTextColor),
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          //resizeToAvoidBottomInset: false,//不讓畫面因為鍵盤超出頁面
           home: StreamBuilder<User?>(
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, snapshot) {

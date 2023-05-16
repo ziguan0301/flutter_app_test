@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_test/home/components/set_Button.dart';
 
@@ -54,6 +55,7 @@ class firdge_edit_card extends StatelessWidget {
   final Color kFridgeColor;
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
     return Column(
       children: [
         SizedBox(height: kDefaultPadding),
@@ -70,7 +72,7 @@ class firdge_edit_card extends StatelessWidget {
               child: Row(
                 children: <Widget>[
                   Text(
-                    "$title",
+                ' ${user.displayName}的冰箱',
                     style: TextStyle(
                       //color: Colors.grey,
                       fontWeight: FontWeight.bold,
@@ -82,7 +84,6 @@ class firdge_edit_card extends StatelessWidget {
                     icon: Image.asset("assets/icons/edit.png"),
                   ),
                   SizedBox(width: 20,),
-
                 ],
               ),
             ),

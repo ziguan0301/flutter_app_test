@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_test/colors.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
-import '../foodmanager/new_food.dart';
-import 'main_category.dart';
 
 class HeaderWithSearchBOx extends StatelessWidget {
-  const HeaderWithSearchBOx({Key? key, required this.size}) : super(key: key);
+  const HeaderWithSearchBOx({Key? key, required this.size, required this.imagepath, required this.otherpage}) : super(key: key);
 
   final Size size;
+  final String imagepath;
+  final Function() otherpage;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
+    return SingleChildScrollView(
         child: Column(
           children: <Widget>[
             SizedBox(height: kDefaultPadding,),
@@ -63,21 +60,14 @@ class HeaderWithSearchBOx extends StatelessWidget {
                   child: CircleAvatar(
                       backgroundColor: Colors.grey[200],
                       child: IconButton(
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => NewFood(),
-                              ),
-                            );
-                          },
-                          icon: Image.asset('assets/icons/plus.png'))),
+                          onPressed: otherpage,
+                          icon: Image.asset(imagepath))),
                 ),
               ],
             ),
-            foodmanager(),
+            //foodmanager(),
           ],
         ),
-      ),
     );
   }
 }

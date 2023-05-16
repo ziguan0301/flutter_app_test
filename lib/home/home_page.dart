@@ -9,20 +9,16 @@ import '../colors.dart';
 import '../mainpage/main_page.dart';
 import 'actions/action_page.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   HomePage({super.key});
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     /** Getting the user from the FirebaseAuth Instance**/
     final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
+      resizeToAvoidBottomInset: false,//不讓畫面因為鍵盤超出頁面
       extendBodyBehindAppBar: true,
       backgroundColor: kHomeBackgroundColor,
       appBar: AppBar(

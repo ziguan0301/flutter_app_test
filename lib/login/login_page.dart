@@ -24,22 +24,19 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,//不讓畫面因為鍵盤超出頁面
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Color(0xFFF2FBFF),
       body: SafeArea(   //解決靠邊（上、下、左、右）的地方會被遮擋
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 15),
-
               // logo
-              const Icon(
-                Icons.lock,
-                size: 100,
-              ),
-
+              Image.asset(
+                height: 200,
+                width: 200,
+                "assets/images/logo.jpg",),
               const SizedBox(height: 15),
-
               // welcome back, you've been missed!
               Text(
                 'Welcome back',
