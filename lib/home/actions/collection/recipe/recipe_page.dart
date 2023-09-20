@@ -2,30 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_test/colors.dart';
 
 class RecipePage extends StatefulWidget {
-  const RecipePage({
+  RecipePage({
     Key? key,
     required this.title,
-    required this.liked, required this.text, required this.imagepath, required this.step,
+    required this.liked,
+    required this.text,
+    required this.imagepath,
+    required this.step,
   }) : super(key: key);
-  final String title,text,imagepath,step;
-  final bool liked;
+  final String title, text, imagepath, step;
+  late bool liked;
 
   @override
   State<RecipePage> createState() => _RecipePageState();
 }
 
 class _RecipePageState extends State<RecipePage> {
-  bool like=false;
   @override
-  void initState(){
-    like=widget.liked;
+  void initState() {
     super.initState();
   }
+
   @override
-  void deactivate(){
+  void deactivate() {
     super.deactivate();
     print("食材的變動");
   }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -68,12 +71,18 @@ class _RecipePageState extends State<RecipePage> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: IconButton(
-                          onPressed: (){
+                          onPressed: () {
                             setState(() {
-                              like=!widget.liked;
+                              if (widget.liked == false) {
+                                widget.liked = true;
+                                //放資料庫
+                              } else {
+                                widget.liked = false;
+                                //從資料庫移除喜歡，類似這段?
+                              }
                             });
                           },
-                          icon: like
+                          icon: widget.liked
                               ? Image.asset(
                                   "assets/icons/heart.png",
                                 )
@@ -98,17 +107,34 @@ class _RecipePageState extends State<RecipePage> {
                   ),
                 ),
                 Container(
-                  width: size.width,
+                    width: size.width,
                     child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("食材:",textAlign: TextAlign.left,style: TextStyle(fontSize: 28,),),
-                    Text("${widget.text}\n",textAlign: TextAlign.left,style: TextStyle(fontSize: 26),),
-                    Text("烹飪方法:\n",textAlign: TextAlign.left,style: TextStyle(fontSize: 28),),
-                    Text("step1.${widget.step}\n",textAlign: TextAlign.left,style: TextStyle(fontSize: 26),),
-                  ],
-                )),
-
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "食材:",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontSize: 28,
+                          ),
+                        ),
+                        Text(
+                          "${widget.text}\n",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(fontSize: 26),
+                        ),
+                        Text(
+                          "烹飪方法:\n",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(fontSize: 28),
+                        ),
+                        Text(
+                          "${widget.step}\n",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(fontSize: 26),
+                        ),
+                      ],
+                    )),
               ],
             ),
           ),

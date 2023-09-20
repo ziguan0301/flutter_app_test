@@ -52,7 +52,9 @@ class HeaderWithSearchBOx extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Image.asset('assets/icons/search.png'),
+                      IconButton(
+                      onPressed: () {},
+                      icon:Image.asset('assets/icons/search.png'),),
                     ],
                   ),
                 ),
@@ -60,8 +62,8 @@ class HeaderWithSearchBOx extends StatelessWidget {
                   child: CircleAvatar(
                       backgroundColor: Colors.grey[200],
                       child: IconButton(
-                          onPressed: otherpage,
-                          icon: Image.asset(imagepath))),
+                          onPressed: () {},
+                          icon: Image.asset('assets/icons/filter.png'))),
                 ),
               ],
             ),

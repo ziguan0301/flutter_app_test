@@ -14,6 +14,8 @@ class CollectionPage extends StatefulWidget {
 }
 
 class _CollectionPageState extends State<CollectionPage> {
+
+  //可能先判斷liked為true的進來?因為可能會判斷所以就預設true過去了
   List<String> title=[
     "香蒜奶油培根義大利麵",
     "剝皮辣椒雞湯",

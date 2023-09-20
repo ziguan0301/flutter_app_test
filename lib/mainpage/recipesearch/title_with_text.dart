@@ -4,15 +4,16 @@ import '../../colors.dart';
 import '../../home/actions/collection/recipe/recipe_page.dart';
 
 class recipe_title_text extends StatefulWidget {
-  const recipe_title_text({
+  recipe_title_text({
     super.key,
     required this.title,
     required this.text,
-    required this.press, required this.size, required this.imagepath, required this.step,
+    required this.press, required this.size, required this.imagepath, required this.step,required this.liked,
   });
   final Size size;
   final List<String> title, text,imagepath,step;
   final Function() press;
+  late List<bool> liked;
 
   @override
   State<recipe_title_text> createState() => _recipe_title_textState();
@@ -72,35 +73,10 @@ class _recipe_title_textState extends State<recipe_title_text> {
                           text: '${widget.text[index]}',
                           imagepath: '${widget.imagepath[index]}',
                           step: '${widget.step[index]}',
-                          liked: false, )));
+                          //liked要調整
+                          liked:widget.liked[index], )));
                   },
-                ),/*Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    RichText(
-                      overflow: TextOverflow.fade,
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: "${widget.title[index]}\n".toUpperCase(),
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 24,
-                            ),
-                          ),
-                          TextSpan(
-                            text: "使用食材：${widget.text[index]}",
-                            style: TextStyle(
-                              color: kPrimaryColor.withOpacity(0.5),
-                              fontSize: 20,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    //Spacer(),
-                  ],
-                ),*/
+                ),
               ),
             );
           }),
