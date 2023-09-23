@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_test/home/home_page.dart';
 import 'package:flutter_app_test/main.dart';
+import 'package:flutter_app_test/mainpage/drawer_components/share_fridge/share_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../colors.dart';
@@ -89,7 +90,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     //需要pop回來
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => HomePage(),
+                        builder: (context) => SharePage(),
                       ),
                     );
                   },

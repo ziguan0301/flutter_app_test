@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_app_test/colors.dart';
 import 'foodmanager/foodstitle_with_more_btn.dart';
 import 'components/main_category.dart';
-import 'components/main_search_header.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);

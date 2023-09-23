@@ -47,53 +47,46 @@ class HomePage extends StatelessWidget {
             );
           }
         },
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                        builder: (context) => Stack(
-                              children: [DrawerScreen(), MainScreen()],
-                            )),
-                  );
-                },
-                icon: Image.asset('assets/images/icecofe.png'),
-                iconSize: 400,
-              ),
-              Text(
-                ' ${user.displayName}的冰箱',
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              /*Text(
-                'Email: \n ${user.email}',
-                style: const TextStyle(fontSize: 24),
-                textAlign: TextAlign.center,
-              ),
-              user.photoURL != null
-                  ? Image.network("${user.photoURL}")
-                  : Container(),
-              user.displayName != null
-                  ? Text("${user.displayName}")
-                  : Container(),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                child: const Text('Sign Out'),
-                onPressed: () {
-                  // Signing out the user
-                  context.read<AuthBloc>().add(SignOutRequested());
-                },
-              ),*/
-            ],
-          ),
-        ),
+        child: Center(child: fridges(user: user)),
       ),
+    );
+  }
+}
+
+class fridges extends StatelessWidget {
+  const fridges({
+    super.key,
+    required this.user,
+  });
+
+  final User user;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        IconButton(
+          onPressed: () {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                  builder: (context) => Stack(
+                        children: [DrawerScreen(), MainScreen()],
+                      )),
+            );
+          },
+          icon: Image.asset('assets/images/icecofe.png'),
+          iconSize: 400,
+        ),
+        Text(
+          ' ${user.displayName}的冰箱',
+          style: const TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ],
     );
   }
 }

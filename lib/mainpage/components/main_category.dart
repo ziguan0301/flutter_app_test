@@ -5,10 +5,9 @@ import 'package:flutter_app_test/mainpage/foodmanager/foodstitle_with_more_btn.d
 import 'package:flutter_app_test/mainpage/foodmanager/main_foods_pic.dart';
 import 'package:flutter_app_test/mainpage/recipesearch/SelectedListController.dart';
 import 'package:get/get.dart';
-
 import '../foodmanager/new_food.dart';
 import '../recipesearch/title_with_text.dart';
-import 'main_search_header.dart';
+
 
 class foodmanager extends StatefulWidget {
   const foodmanager({Key? key}) : super(key: key);
@@ -71,7 +70,8 @@ class _foodmanagerState extends State<foodmanager> {
                             Expanded(
                               child: TextField(
                                 controller: myController,
-                                onChanged: (value) {},
+                                //onSubmitted 按enter後搜尋資料，呼叫seven_food_pic填資料
+                                onSubmitted: (_){},
                                 decoration: InputDecoration(
                                   hintText: "Search",
                                   hintStyle: TextStyle(
@@ -86,6 +86,7 @@ class _foodmanagerState extends State<foodmanager> {
                               ),
                             ),
                             IconButton(
+                              //onPressed跟onSubmitted 一樣搜尋資料
                               onPressed: () {},
                               icon:Image.asset('assets/icons/search.png'),
                             ),
@@ -94,24 +95,15 @@ class _foodmanagerState extends State<foodmanager> {
                       ),
                       Expanded(
                         child: CircleAvatar(
-                            backgroundColor: Colors.grey[200],
+                            backgroundColor: Color(0xFFE9EEF1),
                             child: IconButton(
-                                onPressed: () async {
-                                  final result = await Navigator.push(
+                                onPressed: ()  {
+                                  Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => NewFood(),
                                     ),
                                   );
-                                  //從 B 畫面回傳後更新畫面資料
-                                  setState(() {
-                                    print(result);
-                                    if (result != null) {
-                                      text = result;
-                                    } else {
-                                      print("新增食材沒有回傳訊息");
-                                    }
-                                  });
                                 },
                                 icon: Image.asset('assets/icons/plus.png'))),
                       ),
@@ -282,7 +274,8 @@ class _recipesearchState extends State<recipesearch> {
                           Expanded(
                             child: TextField(
                               controller: myController,
-                              onChanged: (value) {},
+                              //onSubmitted 按enter後搜尋資料，呼叫recipe_title_text填資料
+                              onSubmitted: (_){},
                               decoration: InputDecoration(
                                 hintText: "Search",
                                 hintStyle: TextStyle(
@@ -297,6 +290,7 @@ class _recipesearchState extends State<recipesearch> {
                             ),
                           ),
                           IconButton(
+                            //onPressed記得用跟上面textfile onSubmitted一樣的
                             onPressed: () {},
                             icon:Image.asset('assets/icons/search.png'),
                           ),
@@ -305,7 +299,7 @@ class _recipesearchState extends State<recipesearch> {
                     ),
                     Expanded(
                       child: CircleAvatar(
-                          backgroundColor: Colors.grey[200],
+                          backgroundColor: Color(0xFFE9EEF1),
                           child: IconButton(
                               onPressed: () =>openFilterDialog(context),
                               icon: Image.asset('assets/icons/filter.png'))),
@@ -423,7 +417,6 @@ class list_checkbox extends StatefulWidget {
 
 class _list_checkboxState extends State<list_checkbox> {
   TextEditingController controller=TextEditingController();
-  //TextEditingController lablecontroller=TextEditingController();
   String name = '';
   List<Map> categories = [
     //將資料庫裡的資料先放進來
@@ -454,7 +447,8 @@ class _list_checkboxState extends State<list_checkbox> {
                     final name = await openDialog(context);
                     if (name == null || name.isEmpty) return;
                     setState(() => this.name = name);
-                    //將東西新增進去list<map>categories裡面
+                    //將東西新增進去list<map>categories裡面或資料庫
+                    //已經在dialog新增進去的話這幾行都可以刪了
                     setState(() {
                       categories.add({"title":name,"isChecked": false});
                     });
@@ -472,6 +466,7 @@ class _list_checkboxState extends State<list_checkbox> {
                   key: UniqueKey(),
                   onDismissed: (direction) {
                     setState(() {
+                      //將下面那行替換成刪除資料庫裡的
                       categories.remove(favorite);
                     });
                   },
@@ -487,6 +482,15 @@ class _list_checkboxState extends State<list_checkbox> {
                       onChanged: (val) {
                         setState(() {
                           favorite['isChecked'] = val;
+                          print('資料名稱為：${favorite['title']}');
+                          //延時一秒後刪除打勾資料
+                          Future.delayed(Duration(milliseconds: 1000), () {
+                            print("延时1秒执行");
+                            setState(() {
+                              //將下面那行替換成刪除資料庫裡的
+                              categories.remove(favorite);
+                            });
+                          });
                         });
                       }),
                 );
@@ -514,7 +518,12 @@ class _list_checkboxState extends State<list_checkbox> {
                       borderRadius: BorderRadius.circular(10)),
                 ),
                 controller: controller,
-                onSubmitted: (_) => submit(),
+                onSubmitted: (_){
+                  //此處新增進資料庫：食材名稱的變數為controller.text
+                  Navigator.of(context).pop(controller.text);
+                  controller.clear();
+                  //submit();
+                  },
                 onChanged: (text) {
                   print('食材名稱: $text');
                 },
@@ -522,38 +531,22 @@ class _list_checkboxState extends State<list_checkbox> {
               SizedBox(
                 height: 10,
               ),
-              /*TextField(
-                keyboardType: TextInputType.number,
-                autofocus: true,
-                decoration: InputDecoration(
-                  hintText: '數量：',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                ),
-                controller: lablecontroller,
-                onSubmitted: (_) => submit(),
-                onChanged: (text) {
-                  print('First text field: $text');
-                },
-              ),*/
             ],
           ),
           actions: [
             TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  //lablecontroller?.clear();
-                  controller.clear();
-                },
+                onPressed: () =>submit(),
                 child: Text("取消")),
-            TextButton(onPressed: submit, child: Text("新增")),
+            TextButton(onPressed: (){
+              //此處新增進去資料庫
+
+              submit();
+            }, child: Text("新增")),
           ],
         ),
       );
   void submit() {
-    //var va=[controller.text,lablecontroller.text];
-    Navigator.of(context)
-        .pop(controller.text);
+    Navigator.pop(context);
     controller.clear();
   }
 }
